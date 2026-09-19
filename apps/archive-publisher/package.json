@@ -1,0 +1,38 @@
+{
+  "name": "archive-publisher",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first publishing console: loopback Node service + React UI, backed by @archive/swarm-publisher. The service, not the browser, holds the signing secret.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.json && vite build",
+    "dev:server": "tsx watch src/server/index.ts",
+    "dev:web": "vite",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@archive/format": "workspace:*",
+    "@archive/swarm-publisher": "workspace:*",
+    "@archive/swarm-recovery": "workspace:*",
+    "@ethersphere/bee-js": "13.1.0",
+    "commander": "^12.1.0",
+    "cookie": "^1.0.2",
+    "express": "^4.21.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.6.0",
+    "@types/express": "^4.17.21",
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "@types/supertest": "^6.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  }
+}
