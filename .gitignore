@@ -1,0 +1,38 @@
+# Secrets and local operator config — never tracked.
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+*.secret
+*-secret.*
+
+# Publisher runtime state — resume aid only, never a recovery source.
+state/*
+!state/.gitkeep
+
+# Recovery output — a stranger's downloaded copy, not source material.
+recovered/
+apps/archive-recover/recovered/
+**/recovery-output/
+
+# Dependencies and build artifacts
+node_modules/
+dist/
+dist-web/
+build/
+.turbo/
+*.tsbuildinfo
+coverage/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*

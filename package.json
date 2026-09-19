@@ -1,0 +1,35 @@
+{
+  "name": "archive-that-outlives-its-host",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A local-first Swarm publishing console and recovery reader for a folio archive that outlives its host.",
+  "engines": {
+    "node": ">=20.12.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "archive:preflight": "tsx apps/archive-publisher/src/cli/preflight.ts",
+    "archive:init": "tsx apps/archive-publisher/src/cli/init.ts",
+    "archive:publish": "tsx apps/archive-publisher/src/cli/publish.ts",
+    "archive:recover": "tsx apps/archive-recover/src/cli.ts",
+    "dev:publisher:server": "pnpm --filter archive-publisher run dev:server",
+    "dev:publisher:web": "pnpm --filter archive-publisher run dev:web",
+    "dev:recover:web": "pnpm --filter archive-recover run dev:web",
+    "build": "pnpm -r --workspace-concurrency=1 run build",
+    "typecheck": "pnpm -r run typecheck",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "secret-scan": "node scripts/secret-scan.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^9.17.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
