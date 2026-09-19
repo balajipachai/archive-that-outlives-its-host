@@ -1,0 +1,29 @@
+{
+  "name": "archive-recover",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone recovery reader (CLI + web) for the archive-that-outlives-its-host publication. Only inputs: a feed manifest reference or owner+topic, plus a Bee/content endpoint.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.json && vite build",
+    "dev:web": "vite",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@archive/format": "workspace:*",
+    "@archive/swarm-recovery": "workspace:*",
+    "@ethersphere/bee-js": "13.1.0",
+    "commander": "^12.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  }
+}
