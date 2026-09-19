@@ -1,0 +1,26 @@
+{
+  "name": "@archive/swarm-recovery",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only v13 bee-js resolver/downloader for the recovery reader. Takes only public identifiers plus a Bee/content endpoint. Never imports publisher code, credentials, or state.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./node": "./src/node.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@archive/format": "workspace:*",
+    "@ethersphere/bee-js": "13.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
