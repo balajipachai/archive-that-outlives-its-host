@@ -103,18 +103,21 @@ node (not mocked):
    check 5 / AC-01 claim, demonstrated live rather than only
    unit-tested.
 
+4. **`archive:preflight`, `archive:init`, and `archive:publish` also
+   confirmed to *refuse* a real mutable batch** — a batch created
+   directly against the node's `/stamps` endpoint with `immutable:
+   false` (bypassing the app on purpose, since the publish flow never
+   exposes a "create a mutable batch" action). All three commands
+   reported `This batch cannot be used for a preservation release`
+   before touching `feed.createManifest` or `uploadFromDirectory`.
+
 This closes out every rubric check that required live network I/O.
 
 ## Still outstanding
 
-**A `batch-not-immutable` demonstration against a real mutable batch**
-— the invariant is enforced in code and covered by a mocked test
-(`packages/swarm-publisher/test/publish-flow.test.ts`), but has not
-been exercised in this session against an actual node-created mutable
-batch (doing so would require creating a second, non-immutable batch
-solely to prove rejection). Not a design gap — the code path has an
-explicit, independently-reviewable test against the real library's
-documented call/return shapes.
+None. Every rubric check, AC row, and state-machine branch that
+required live network I/O against a real Bee node has now been
+demonstrated, not just unit-tested.
 
 ## Deviations from a literal reading of the PRD
 
