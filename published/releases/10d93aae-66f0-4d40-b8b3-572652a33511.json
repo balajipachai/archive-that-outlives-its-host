@@ -1,0 +1,15 @@
+{
+  "format": "org.road-to-devcon.archive-release-receipt",
+  "version": 1,
+  "releaseId": "10d93aae-66f0-4d40-b8b3-572652a33511",
+  "feedManifestReference": "c535c27a107c25c525fc4708f7a5d4e702f43cc8c68c3bf082ed588e0a49ca85",
+  "collectionReference": "488add3230e762e4b2a65b03872520f5160ae1ad7ecb19cc6a421be583abe66b",
+  "feedIndex": "0",
+  "batchId": "f2b97abbee3220e0b36980f0cc66bed8f1a48e7a0a653838d374f95456f121bd",
+  "immutableObservedAt": "2026-09-20T07:32:45.817Z",
+  "batchDurationObservedAt": "2026-09-20T07:32:45.817Z",
+  "batchDurationSeconds": 84043,
+  "publishedAt": "2026-09-20T07:33:04.370Z",
+  "fileCount": 4,
+  "totalSizeBytes": 1703201
+}
