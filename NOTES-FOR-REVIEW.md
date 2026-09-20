@@ -12,8 +12,9 @@ pnpm build            # tsc + vite build for every app/package
 pnpm secret-scan       # scripts/secret-scan.mjs over every git-tracked file
 ```
 
-Individually runnable CLI contract (all four commands exist and work,
-verified against no live node to show truthful degraded states):
+Individually runnable CLI contract (all four commands exist and work —
+verified both against no live node, to show truthful degraded states, and
+against a real funded node end to end; see "Live demo" below):
 
 ```bash
 pnpm archive:preflight --endpoint http://localhost:1633 --batch-id <64-hex>
@@ -28,7 +29,7 @@ pnpm archive:recover   --owner <0x..> --topic <topic> --endpoint <endpoint> --ou
 | # | Check | Code | Test |
 | --- | --- | --- | --- |
 | 1 | Published behind a feed, not a bare reference | `packages/swarm-publisher/src/feed.ts` (`createFeedManifest`, `advanceFeedWithVerification`); UI/CLI always display `archiveAddress` derived from the feed manifest, never a collection reference, as the share value (`apps/archive-publisher/src/web/App.tsx`, `src/cli/init.ts`) | `packages/swarm-publisher/test/feed.test.ts` |
-| 2 | Owner + topic in a tracked file | `published/archive-publication.json` schema: `packages/archive-format/src/{types.ts,schema.ts}`; written by `runInit` (`packages/swarm-publisher/src/publish-flow.ts`) | `packages/archive-format/test/schema.test.ts`. **Status: schema/writer code complete and tested; the actual file is not yet committed in this checkout — see "Outstanding" below.** |
+| 2 | Owner + topic in a tracked file | `published/archive-publication.json` schema: `packages/archive-format/src/{types.ts,schema.ts}`; written by `runInit` (`packages/swarm-publisher/src/publish-flow.ts`) | `packages/archive-format/test/schema.test.ts`. **Status: committed with real values from a live `archive:init` run — owner `0xd7a9CCaabf885A80Aa0c48ddef97620c49aB3e37`, topic `master-of-all`.** |
 | 3 | Next feed index resolved from the network before each update | `packages/swarm-publisher/src/feed.ts` (`readCurrentFeed` read immediately precedes every `uploadReference` call; index is never a literal/local counter) | `packages/swarm-publisher/test/feed.test.ts` (asserts the index passed to `uploadReference` matches what the mocked live read returned, across first-publish, subsequent-release, idempotent-retry, and ambiguous-failure-retry scenarios) |
 | 4 | Multi-chunk content written to the feed by reference | `packages/swarm-publisher/src/upload.ts` (`uploadCollection` → `bee.collection.uploadFromDirectory`) then `src/feed.ts` (`writer.uploadReference(batchId, collectionReference, ...)`) — `uploadPayload` is never called with archive bytes | `packages/swarm-publisher/test/feed.test.ts` asserts `uploadReference` receives the collection reference string, never file bytes |
 | 5 | Recovery reads from published identifiers alone | `packages/swarm-recovery/` (whole package) + `apps/archive-recover/src/cli.ts`; imports nothing from the publisher, reads no local index/state | `apps/archive-recover/test/import-boundary.test.ts` (static import-boundary check), `packages/swarm-recovery/test/*.test.ts` |
@@ -70,34 +71,50 @@ narrative version of each.
   `127.0.0.1` (not `0.0.0.0`), refusing to answer without a session on a
   protected route.
 
-## Outstanding — needs one live run against a funded Bee node
+## Live demo — completed against a funded Bee node
 
-This sandboxed environment has no funded Bee node and no way to redeem a
-Swarm gift code (that is an inherently manual, one-machine, one-person step
-via the Swarm Desktop GUI — not something that can be scripted or delegated
-here, and not something this session had credentials for). As a result:
+The full PRD §12 demo has been run end to end against a real, funded Bee
+node (not mocked):
 
-1. **`published/archive-publication.json` is not committed yet.** Per PRD
-   §4.1, a template or runtime-only value does not satisfy this
-   requirement, and this repo does not fabricate a fake owner address —
-   doing so would be exactly the kind of dishonest placeholder the PRD's own
-   design philosophy argues against. Run `pnpm archive:init` (see
-   `docs/DEMO.md` step 2) once a funded node is available, then commit the
-   resulting file. Rubric check 2 will not pass until that happens.
-2. **The live/demo verification in PRD §12** (publish v1 → v2 → delete
-   state → recover v2 via a separate process) has a fully written script
-   (`docs/DEMO.md`) and every function it calls is unit-tested against the
-   real SDK shapes, but has not been run end-to-end against genuine network
-   I/O in this session.
-3. **A `batch-not-immutable` demonstration against a real mutable batch** —
-   the invariant is enforced in code and covered by a mocked test
-   (`packages/swarm-publisher/test/publish-flow.test.ts`), but has not been
-   exercised against an actual node-created mutable batch.
+1. **`archive:init`** created the one feed manifest and wrote
+   `published/archive-publication.json` with real values (committed):
+   owner `0xd7a9CCaabf885A80Aa0c48ddef97620c49aB3e37`, topic
+   `master-of-all`, and a real feed manifest reference (see the
+   committed `feed.manifestReference` / `archiveAddress` fields in that
+   file).
+2. **`archive:publish` v1**, then **v2** with a corrected file, each
+   completed the full uploading → advancing-feed → verifying →
+   `Published and recoverable` sequence. Receipts committed at
+   `published/releases/10d93aae-...json` (feed index `0`) and
+   `published/releases/9f137916-...json` (feed index `1`) — both under
+   the same `feedManifestReference`, confirming the address never
+   changed across releases.
+3. **Independent recovery, both input modes**, against the real feed:
+   - `pnpm archive:recover --manifest bzz://c535c27a.../ --endpoint
+     http://localhost:1633 --out <dir>`
+   - `pnpm archive:recover --owner 0xd7a9CCaabf885A80Aa0c48ddef97620c49aB3e37
+     --topic master-of-all --endpoint http://localhost:1633 --out <dir>`
 
-None of this is a design gap — every function involved has explicit,
-independently-reviewable tests against the real library's documented
-call/return shapes. It's a one-time manual setup step (Swarm Desktop + gift
-code redemption) that only the person holding that gift code can perform.
+   Both resolved through the live feed (the owner+topic path reported
+   `Feed index: 1` and the exact collection reference from the v2
+   receipt), downloaded all 4 files, verified every SHA-256, and
+   returned **v2's corrected content** (`notes.txt` containing
+   "Corrected caption for RTD-V.webp") — the exact rubric check 1 /
+   check 5 / AC-01 claim, demonstrated live rather than only
+   unit-tested.
+
+This closes out every rubric check that required live network I/O.
+
+## Still outstanding
+
+**A `batch-not-immutable` demonstration against a real mutable batch**
+— the invariant is enforced in code and covered by a mocked test
+(`packages/swarm-publisher/test/publish-flow.test.ts`), but has not
+been exercised in this session against an actual node-created mutable
+batch (doing so would require creating a second, non-immutable batch
+solely to prove rejection). Not a design gap — the code path has an
+explicit, independently-reviewable test against the real library's
+documented call/return shapes.
 
 ## Deviations from a literal reading of the PRD
 

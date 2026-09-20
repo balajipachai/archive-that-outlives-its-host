@@ -96,14 +96,13 @@ per release (`packages/archive-format/src/limits.ts`). If a collection
 outgrows a batch's capacity, buy a larger/deeper immutable batch and publish
 a new release with the same feed — the address does not change.
 
-## Known limitation in this snapshot
+## Live evidence
 
-`published/archive-publication.json` is **not yet committed** in this
-checkout, because doing so honestly requires a real `pnpm archive:init` run
-against a genuinely funded Bee node (per PRD §4.1, a template or
-runtime-only value does not satisfy the requirement, and this repo does not
-fabricate one). Once you have redeemed a gift code in Swarm Desktop, run the
-Quickstart above end-to-end — `archive:init` then `archive:publish` — and
-commit the resulting `published/archive-publication.json`. See
-`NOTES-FOR-REVIEW.md` for the full status of what is code-complete and
-mocked-tested versus what needs one live run to produce real evidence.
+`published/archive-publication.json` was produced by a real `archive:init`
+run against a funded Bee node and is committed with real values (not a
+template): a real owner address, topic, and feed manifest reference. Two
+real releases have been published against it since
+(`published/releases/*.json`) — feed index `0` then `1`, both under the same
+`feedManifestReference`, confirming the address stays stable across
+releases. See `NOTES-FOR-REVIEW.md` for the full rubric-by-rubric evidence
+map.
