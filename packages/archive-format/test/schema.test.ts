@@ -68,7 +68,7 @@ describe('parseArchivePublicationRecord', () => {
       version: 1,
       feed: {
         owner: '0x1234567890123456789012345678901234567890',
-        topic: 'spiti-folios-v1',
+        topic: 'master-of-all',
         manifestReference: validHex64,
       },
       initializationBatchId: validHex64,

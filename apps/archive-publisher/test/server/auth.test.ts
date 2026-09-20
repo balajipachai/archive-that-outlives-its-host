@@ -32,7 +32,7 @@ beforeEach(() => {
   runInitMock.mockReset()
   runInitMock.mockResolvedValue({
     ownerAddress: '0x1234567890123456789012345678901234567890',
-    topic: 'spiti-folios-v1',
+    topic: 'master-of-all',
     feedManifestReference: 'a'.repeat(64),
     archiveAddress: `bzz://${'a'.repeat(64)}/`,
     batchId: 'b'.repeat(64),
@@ -46,7 +46,7 @@ describe('POST /api/init — auth gate', () => {
     const res = await request(app)
       .post('/api/init')
       .set('Origin', ORIGIN)
-      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'spiti-folios-v1' })
+      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'master-of-all' })
 
     expect(res.status).toBe(401)
     expect(runInitMock).not.toHaveBeenCalled()
@@ -61,7 +61,7 @@ describe('POST /api/init — auth gate', () => {
       .set('Origin', 'http://evil.example.com')
       .set('Cookie', cookie)
       .set('x-csrf-token', csrfToken)
-      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'spiti-folios-v1' })
+      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'master-of-all' })
 
     expect(res.status).toBe(403)
     expect(res.body.error).toBe('origin_not_allowed')
@@ -76,7 +76,7 @@ describe('POST /api/init — auth gate', () => {
       .post('/api/init')
       .set('Origin', ORIGIN)
       .set('Cookie', cookie)
-      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'spiti-folios-v1' })
+      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'master-of-all' })
 
     expect(res.status).toBe(403)
     expect(res.body.error).toBe('invalid_csrf')
@@ -92,7 +92,7 @@ describe('POST /api/init — auth gate', () => {
       .set('Origin', ORIGIN)
       .set('Cookie', cookie)
       .set('x-csrf-token', 'wrong-token-wrong-token-wrong-token-wrong-token')
-      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'spiti-folios-v1' })
+      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'master-of-all' })
 
     expect(res.status).toBe(403)
     expect(runInitMock).not.toHaveBeenCalled()
@@ -107,7 +107,7 @@ describe('POST /api/init — auth gate', () => {
       .set('Origin', ORIGIN)
       .set('Cookie', cookie)
       .set('x-csrf-token', csrfToken)
-      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'spiti-folios-v1' })
+      .send({ endpoint: 'http://localhost:1633', batchId: 'x'.repeat(64), topic: 'master-of-all' })
 
     expect(res.status).toBe(200)
     expect(res.body.result.archiveAddress).toBe(`bzz://${'a'.repeat(64)}/`)

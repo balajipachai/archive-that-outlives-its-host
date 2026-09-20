@@ -55,7 +55,7 @@ This is the file a reader copies identifiers out of.
   "version": 1,
   "feed": {
     "owner": "0x<20-byte-address>",   // EIP-55 checksummed
-    "topic": "spiti-folios-v1",       // human-readable, hashed via Topic.fromString
+    "topic": "master-of-all",       // human-readable, hashed via Topic.fromString
     "manifestReference": "<64-hex>"   // the feed manifest reference
   },
   "initializationBatchId": "<64-hex>",

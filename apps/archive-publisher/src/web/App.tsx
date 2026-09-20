@@ -107,7 +107,7 @@ export function App() {
   const [signedIn, setSignedIn] = useState(hasSession())
   const [endpoint, setEndpoint] = useState('http://localhost:1633')
   const [batchId, setBatchId] = useState('')
-  const [topic, setTopic] = useState('spiti-folios-v1')
+  const [topic, setTopic] = useState('master-of-all')
   const [inputDir, setInputDir] = useState('')
   const [title, setTitle] = useState('')
 

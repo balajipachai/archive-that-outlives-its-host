@@ -38,7 +38,7 @@ those states too.
 ## 2. Initialize the feed (once, ever, per topic)
 
 ```bash
-pnpm archive:init --topic spiti-folios-v1 --endpoint http://localhost:1633 --batch-id <your-batch-id>
+pnpm archive:init --topic master-of-all --endpoint http://localhost:1633 --batch-id <your-batch-id>
 ```
 
 This creates the one feed manifest and writes

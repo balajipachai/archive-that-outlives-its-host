@@ -29,9 +29,9 @@ describe('normalizeManifestReference', () => {
 
 describe('validateOwnerTopic', () => {
   it('accepts a valid address and topic', () => {
-    expect(validateOwnerTopic('0x1234567890123456789012345678901234567890', 'spiti-folios-v1')).toEqual({
+    expect(validateOwnerTopic('0x1234567890123456789012345678901234567890', 'master-of-all')).toEqual({
       owner: '0x1234567890123456789012345678901234567890',
-      topic: 'spiti-folios-v1',
+      topic: 'master-of-all',
     })
   })
 
@@ -65,7 +65,7 @@ describe('resolveArchive', () => {
     const resolved = await resolveArchive(bee, {
       mode: 'owner-topic',
       owner: '0x1234567890123456789012345678901234567890',
-      topic: 'spiti-folios-v1',
+      topic: 'master-of-all',
     })
 
     expect(resolved.addressReference).toBe(collectionRef)
@@ -81,7 +81,7 @@ describe('resolveArchive', () => {
     const bee = { feed: { makeReader } } as any
 
     await expect(
-      resolveArchive(bee, { mode: 'owner-topic', owner: '0x1234567890123456789012345678901234567890', topic: 'spiti-folios-v1' }),
+      resolveArchive(bee, { mode: 'owner-topic', owner: '0x1234567890123456789012345678901234567890', topic: 'master-of-all' }),
     ).rejects.toThrow(NoReleasePublishedError)
   })
 })

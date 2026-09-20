@@ -132,7 +132,7 @@ export function App() {
               Feed topic
               <input
                 type="text"
-                placeholder="spiti-folios-v1"
+                placeholder="master-of-all"
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 style={{ width: '100%' }}

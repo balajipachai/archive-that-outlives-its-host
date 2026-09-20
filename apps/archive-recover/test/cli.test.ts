@@ -38,13 +38,13 @@ describe('archive-recover CLI', () => {
     program.exitOverride()
 
     await program.parseAsync(
-      ['--owner', '0x1234567890123456789012345678901234567890', '--topic', 'spiti-folios-v1', '--endpoint', 'http://localhost:1633', '--out', '/tmp/out'],
+      ['--owner', '0x1234567890123456789012345678901234567890', '--topic', 'master-of-all', '--endpoint', 'http://localhost:1633', '--out', '/tmp/out'],
       { from: 'user' },
     )
 
     const call = recoverFn.mock.calls[0]![0]
     expect(call.owner).toBe('0x1234567890123456789012345678901234567890')
-    expect(call.topic).toBe('spiti-folios-v1')
+    expect(call.topic).toBe('master-of-all')
     process.exitCode = 0
   })
 

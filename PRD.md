@@ -97,7 +97,7 @@ a template or runtime-only values do not meet the requirement.
   "version": 1,
   "feed": {
     "owner": "0x<public-feed-owner-address>",
-    "topic": "spiti-folios-v1",
+    "topic": "master-of-all",
     "manifestReference": "<64-hex-feed-manifest-reference>"
   },
   "initializationBatchId": "<64-hex-public-batch-id>",

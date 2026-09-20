@@ -35,7 +35,7 @@ pnpm typecheck && pnpm lint && pnpm build && pnpm test && pnpm secret-scan
 
 ```bash
 pnpm archive:preflight --endpoint http://localhost:1633 --batch-id <existing-batch-id>
-pnpm archive:init      --topic spiti-folios-v1 --endpoint http://localhost:1633 --batch-id <existing-batch-id>
+pnpm archive:init      --topic master-of-all --endpoint http://localhost:1633 --batch-id <existing-batch-id>
 pnpm archive:publish   --input ./folios --endpoint http://localhost:1633 --batch-id <existing-batch-id> --title "Spiti Folios v1"
 
 # or, the same flows through a local web console:

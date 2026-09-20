@@ -62,7 +62,7 @@ describe('runPublish — batch immutability invariant', () => {
   it('refuses to upload or advance the feed when the batch is not immutable', async () => {
     runPreflightMock.mockResolvedValue({ kind: 'batch-not-immutable', detail: 'nope', batchId: 'mutable-batch' })
     readPublicationRecordMock.mockResolvedValue({
-      feed: { owner: '0x1234567890123456789012345678901234567890', topic: 'spiti-folios-v1', manifestReference: 'a'.repeat(64) },
+      feed: { owner: '0x1234567890123456789012345678901234567890', topic: 'master-of-all', manifestReference: 'a'.repeat(64) },
       archiveAddress: `bzz://${'a'.repeat(64)}/`,
     })
 

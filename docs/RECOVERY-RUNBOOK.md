@@ -28,7 +28,7 @@ pnpm archive:recover \
 # Or using the owner + topic pair instead:
 pnpm archive:recover \
   --owner 0x<public-feed-owner-address> \
-  --topic spiti-folios-v1 \
+  --topic master-of-all \
   --endpoint http://localhost:1633 \
   --out ./recovered
 ```
