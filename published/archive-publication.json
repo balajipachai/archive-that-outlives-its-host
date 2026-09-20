@@ -1,0 +1,20 @@
+{
+  "format": "org.road-to-devcon.archive-publication",
+  "version": 1,
+  "feed": {
+    "owner": "0xd7a9CCaabf885A80Aa0c48ddef97620c49aB3e37",
+    "topic": "master-of-all",
+    "manifestReference": "c535c27a107c25c525fc4708f7a5d4e702f43cc8c68c3bf082ed588e0a49ca85"
+  },
+  "initializationBatchId": "f2b97abbee3220e0b36980f0cc66bed8f1a48e7a0a653838d374f95456f121bd",
+  "archiveAddress": "bzz://c535c27a107c25c525fc4708f7a5d4e702f43cc8c68c3bf082ed588e0a49ca85/",
+  "createdAt": "2026-09-20T07:12:07.585Z",
+  "recovery": {
+    "inputOptions": [
+      "archiveAddress/feed.manifestReference",
+      "feed.owner + feed.topic"
+    ],
+    "collectionEndpointFamily": "bzz",
+    "addressGrammar": "bzz://<feed-manifest-reference>/"
+  }
+}
