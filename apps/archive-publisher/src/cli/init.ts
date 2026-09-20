@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import '../load-env.js'
 import { Command } from 'commander'
 import { runInit } from '@archive/swarm-publisher'
 import { describePublisherError } from './common.js'
@@ -7,7 +8,7 @@ import { describePublisherError } from './common.js'
 const program = new Command()
 
 program
-  .requiredOption('--topic <topic>', 'human-readable feed topic, e.g. spiti-folios-v1')
+  .requiredOption('--topic <topic>', 'human-readable feed topic, e.g. master-of-all')
   .requiredOption('--endpoint <url>', 'Bee node HTTP API, e.g. http://localhost:1633')
   .requiredOption('--batch-id <id>', 'existing postage batch ID to create the feed manifest with')
   .action(async (opts) => {

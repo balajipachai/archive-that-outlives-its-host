@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import '../load-env.js'
 import { Command } from 'commander'
 import { runPublish, UploadedNotPublishedError } from '@archive/swarm-publisher'
 import { describePublisherError } from './common.js'

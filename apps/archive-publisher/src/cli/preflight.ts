@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import '../load-env.js'
 import { Command } from 'commander'
 import { createBeeClient, runPreflight } from '@archive/swarm-publisher'
 import { describePublisherError } from './common.js'
